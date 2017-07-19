@@ -4,7 +4,6 @@ var application = express();
 var cors = require('cors');
 
 var items = require('./data').items;
-var maxItems = items.length
 
 var _ = require('lodash');
 
@@ -14,7 +13,8 @@ application.use(cors({
 
 application.get('/', function(req, res) {
   var posts = items;
-
+  var maxItems = posts.length
+  console.log(req.query.query)
   if (req.query.query) {
     posts = _.filter(items, function(i) { return i['title'].includes(req.query.query); });
     maxItems = posts.length;
