@@ -14,7 +14,7 @@ application.use(cors({
 application.get('/', function(req, res) {
   var posts = items;
   var maxItems = posts.length
-  console.log(req.query.query)
+
   if (req.query.query) {
     posts = _.filter(items, function(i) { return i['title'].includes(req.query.query); });
     maxItems = posts.length;
@@ -24,8 +24,18 @@ application.get('/', function(req, res) {
     'MAX-POSTS': maxItems
   });
 
-  var step = parseInt(req.query.step);
-  var page = parseInt(req.query.page) - 1;
+  if (req.query.step) {
+    var step = parseInt(req.query.step);
+  } else {
+    step = 2;
+  }
+
+  if (req.query.step) {
+    var page = parseInt(req.query.page) - 1;
+  } else {
+    page = 0;
+  }
+
   var arr_of_items = _.chunk(posts, step);
   var res_items = arr_of_items[page];
 
