@@ -3,7 +3,6 @@ var moment = require('moment');
 module.exports = {
   items: [
     {
-      id: 1,
       title: 'Первый немного текста',
       image: {
         src: '/dist/images/react.svg',
@@ -19,7 +18,6 @@ module.exports = {
       }
     },
     {
-      id: 2,
       title: 'Второй немного текста',
       image: {
         src: '/dist/images/react.svg',
@@ -35,7 +33,6 @@ module.exports = {
       }
     },
     {
-      id: 4,
       title: 'Четвертый немного текста',
       image: {
         src: '/dist/images/react.svg',
