@@ -6,6 +6,8 @@ var moment = require('moment');
 
 var _ = require('lodash');
 
+// Sequelize
+
 var Sequelize = require('sequelize');
 
 const sequelize = new Sequelize('database', 'username', 'password', {
@@ -20,7 +22,6 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   storage: 'database/posts.sqlite'
 });
 
-
 sequelize
   .authenticate()
   .then(() => {
@@ -30,10 +31,12 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-
 const Post = sequelize.define('post', {
   title: {
     type: Sequelize.STRING
+    validate: {
+      min: 5
+    }
   },
   image: {
     type: Sequelize.JSON
@@ -48,6 +51,9 @@ Post.sync({force: true}).then(() => {
     Post.create(value)
   });
 });
+
+// /////////////////////////////////////////////////////////////////////////////
+
 
 application.use(cors({
   exposedHeaders:['MAX-POSTS'],

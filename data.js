@@ -5,7 +5,7 @@ module.exports = {
     {
       title: 'Первый немного текста',
       image: {
-        src: '/dist/images/react.svg',
+        src: '/images/react.svg',
         alt: 'Alt 1',
         width: '100px',
         height: '100px'
@@ -20,7 +20,7 @@ module.exports = {
     {
       title: 'Второй немного текста',
       image: {
-        src: '/dist/images/react.svg',
+        src: '/images/react.svg',
         alt: 'Alt 2',
         width: '100px',
         height: '100px'
@@ -35,7 +35,7 @@ module.exports = {
     {
       title: 'Четвертый немного текста',
       image: {
-        src: '/dist/images/react.svg',
+        src: '/images/react.svg',
         alt: 'Alt 3',
         width: '100px',
         height: '100px'
