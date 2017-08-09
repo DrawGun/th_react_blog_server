@@ -33,7 +33,7 @@ sequelize
 
 const Post = sequelize.define('post', {
   title: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
     validate: {
       min: 5
     }
@@ -43,6 +43,41 @@ const Post = sequelize.define('post', {
   },
   meta: {
     type: Sequelize.JSON
+  }
+});
+
+const Comment = sequelize.define('post', {
+  text: {
+    type: Sequelize.TEXT,
+    validate: {
+      min: 5
+    }
+  },
+  author: {
+    type: Sequelize.STRING
+  }
+});
+
+const Feebdack = sequelize.define('post', {
+  text: {
+    type: Sequelize.TEXT,
+    validate: {
+      min: 5
+    }
+  },
+  author: {
+    type: Sequelize.STRING
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      isEmail:true
+    },
+    unique: {
+        args: true,
+        msg: 'Email address already in use!'
+    }
   }
 });
 
