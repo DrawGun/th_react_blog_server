@@ -4,6 +4,8 @@ var application = express();
 var cors = require('cors');
 var moment = require('moment');
 
+const bodyParser = require('body-parser');
+
 var _ = require('lodash');
 
 // Sequelize
@@ -46,7 +48,7 @@ const Post = sequelize.define('post', {
   }
 });
 
-const Comment = sequelize.define('post', {
+const Comment = sequelize.define('comment', {
   text: {
     type: Sequelize.TEXT,
     validate: {
@@ -58,14 +60,14 @@ const Comment = sequelize.define('post', {
   }
 });
 
-const Feebdack = sequelize.define('post', {
-  text: {
+const Feedback = sequelize.define('feedback', {
+  message: {
     type: Sequelize.TEXT,
     validate: {
       min: 5
     }
   },
-  author: {
+  fullName: {
     type: Sequelize.STRING
   },
   email: {
@@ -87,12 +89,19 @@ Post.sync({force: true}).then(() => {
   });
 });
 
+Feedback.sync({force: true}).then(() => {
+
+});
+
 // /////////////////////////////////////////////////////////////////////////////
 
 
 application.use(cors({
   exposedHeaders:['MAX-POSTS'],
 }));
+
+application.use(bodyParser.urlencoded());
+application.use(bodyParser.json());
 
 application.get('/', function(req, res) {
   Post.findAll().then(items => {
@@ -146,6 +155,18 @@ application.post('/posts/:id/like', function(req, res) {
       res.json(post);
     })
   })
+});
+
+application.post('/contacts', function(req, res) {
+  Feedback.findOrCreate({where: req.body}).spread(function (user, created) {
+    return res.json(user);
+  }).catch(Sequelize.ValidationError, function (err) {
+    return res.status(422).send(err.errors);
+  }).catch(function (err) {
+    return res.status(400).send({
+        message: err.message
+    });
+  });
 });
 
 application.listen(3001, function() {
