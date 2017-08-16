@@ -57,6 +57,9 @@ const Comment = sequelize.define('comment', {
   },
   author: {
     type: Sequelize.STRING
+  },
+  phone: {
+    type: Sequelize.STRING
   }
 });
 
@@ -151,6 +154,23 @@ application.post('/posts/:id/like', function(req, res) {
 
     post.update({
       meta: meta
+    }).then(() => {
+      res.json(post);
+    })
+  })
+});
+
+application.put('/posts/:id', function(req, res) {
+  Post.findOne({ where: {id: req.params.id} }).then(post => {
+    var meta = post.meta;
+    var title = req.body.title;
+    var createdAt = req.body.createdAt;
+    meta.author = req.body.author;
+
+    post.update({
+      title: title,
+      meta: meta,
+      createdAt: createdAt
     }).then(() => {
       res.json(post);
     })
